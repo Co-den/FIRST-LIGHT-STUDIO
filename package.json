@@ -2,7 +2,14 @@
   "name": "first-light-studio",
   "version": "0.1.0",
   "private": true,
-  "scripts": { "dev": "next dev", "build": "next build", "start": "next start" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+   "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
   "dependencies": {
     "lucide-react": "^0.468.0",
     "motion": "^11.18.0",
@@ -12,6 +19,8 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.0",
-    "tailwindcss": "^4.1.0"
+    "tailwindcss": "^4.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^15.5.0"
   }
 }
