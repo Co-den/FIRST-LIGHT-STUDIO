@@ -1,12 +1,10 @@
-import { Bangers, League_Spartan, Inter } from "next/font/google";
+import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { site } from "@/data/site";
 
-const bangers = Bangers({ weight: "400", subsets: ["latin"], variable: "--font-bangers", display: "swap" });
-const spartan = League_Spartan({ subsets: ["latin"], variable: "--font-spartan", display: "swap" });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const source = Source_Sans_3({ subsets: ["latin"], weight: ["300", "400", "600", "700"], variable: "--font-source", display: "swap" });
 
 export const metadata = {
   ...(site.url && { metadataBase: new URL(site.url) }),
@@ -18,7 +16,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${bangers.variable} ${spartan.variable} ${inter.variable}`}>
+    <html lang="en" className={source.variable}>
       <body className="bg-night text-white antialiased">
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-sun focus:px-4 focus:py-2 focus:text-night">Skip to content</a>
         <Nav />

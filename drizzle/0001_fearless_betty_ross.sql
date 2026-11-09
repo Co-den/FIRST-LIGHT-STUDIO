@@ -1,0 +1,2 @@
+CREATE UNIQUE INDEX "follows_series_uq" ON "follows" USING btree ("user_id","series_id");--> statement-breakpoint
+CREATE UNIQUE INDEX "follows_pub_uq" ON "follows" USING btree ("user_id","publisher_id");

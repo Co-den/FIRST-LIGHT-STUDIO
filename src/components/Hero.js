@@ -1,36 +1,49 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 
-export default function Hero() {
+// Placeholder composition shown until real artwork is supplied (NEXT_PUBLIC_HERO_IMAGE).
+function ForestPlaceholder() {
+  return (
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" className="h-full w-full" aria-hidden="true">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#0a1118" /><stop offset="1" stopColor="#10262b" /></linearGradient>
+        <radialGradient id="glow" cx="0.3" cy="0.55" r="0.5"><stop offset="0" stopColor="#6fb7b0" stopOpacity="0.28" /><stop offset="1" stopColor="#6fb7b0" stopOpacity="0" /></radialGradient>
+      </defs>
+      <rect width="1200" height="800" fill="url(#sky)" />
+      <rect width="1200" height="800" fill="url(#glow)" />
+      <g fill="#12292f"><rect x="90" width="70" height="800" /><rect x="330" width="46" height="800" /><rect x="520" width="90" height="800" /><rect x="880" width="60" height="800" /></g>
+      <g fill="#0a171c"><rect x="20" width="110" height="800" /><rect x="430" width="64" height="800" /><rect x="700" width="130" height="800" /><rect x="1040" width="150" height="800" /></g>
+      <g fill="#070e13"><path d="M700 0h300c-40 90-30 150-120 200-60 30-110 20-180 80-30-110-60-180-0-280Z" /><path d="M0 0h260c-20 80-90 110-140 170C70 130 30 90 0 80Z" /><ellipse cx="260" cy="790" rx="360" ry="70" /><ellipse cx="900" cy="800" rx="420" ry="90" /></g>
+    </svg>
+  );
+}
+
+export default function Hero({ image }) {
   const ref = useRef(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const sunY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "35%"]);
-  const line = (d) => (reduce ? {} : { initial: { opacity: 0, y: 40 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, delay: d, ease: "easeOut" } });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "14%"]);
+  const rise = (d) => (reduce ? {} : { initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y: 0 }, transition: { duration: 1, delay: d, ease: [0.22, 1, 0.36, 1] } });
 
   return (
-    <section ref={ref} className="relative flex min-h-[100svh] items-end overflow-hidden bg-night pb-20 pt-32">
-      {/* Rising sun: art-directed placeholder. Swap for hero artwork at /images/hero/hero.jpg */}
-      <motion.div aria-hidden="true" style={{ y: sunY }} className="pointer-events-none absolute inset-x-0 bottom-0 h-[75%]">
-        <div className="absolute left-1/2 top-[18%] aspect-square w-[130vmin] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(245,184,46,.55)_0%,rgba(201,138,18,.18)_40%,transparent_68%)]" />
-        <div className="absolute left-1/2 top-[34%] aspect-square w-[46vmin] -translate-x-1/2 rounded-full bg-sun" />
+    <section ref={ref} className="relative isolate flex min-h-[100svh] items-center justify-center overflow-hidden bg-night px-5 pb-16 pt-28 text-center">
+      <motion.div aria-hidden="true" style={{ y }} className="absolute -inset-y-[8%] inset-x-0 -z-20">
+        {image ? <Image src={image} alt="" fill priority sizes="100vw" className="object-cover" /> : <ForestPlaceholder />}
       </motion.div>
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[34%] bg-night [clip-path:polygon(0_45%,12%_30%,24%_52%,38%_22%,52%_48%,66%_18%,80%_46%,92%_28%,100%_40%,100%_100%,0_100%)]" />
-      <div className="relative mx-auto w-full max-w-7xl px-5 lg:px-8">
-        <motion.h1 {...line(0.1)} className="max-w-4xl font-display text-6xl leading-[0.95] tracking-wide sm:text-7xl lg:text-8xl">
-          EVERY GREAT WORLD BEGINS WITH A STORY.
-        </motion.h1>
-        <motion.p {...line(0.35)} className="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
-          FIRST LIGHT STUDIO creates original stories, compelling characters, comics, and visual worlds.
-        </motion.p>
-        <motion.div {...line(0.55)} className="mt-9 flex flex-wrap gap-4">
-          <Link href="/worlds" className="rounded-sm bg-sun px-7 py-3.5 font-head font-bold text-night transition hover:bg-white active:scale-95">EXPLORE OUR WORLDS</Link>
-          <Link href="/about" className="rounded-sm border border-white/60 px-7 py-3.5 font-head font-bold transition hover:border-sun hover:text-sun active:scale-95">ABOUT THE STUDIO</Link>
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-night/55 via-night/35 to-night" />
+      <div className="max-w-3xl">
+        <motion.p {...rise(0.1)} className="eyebrow">First Light Studio</motion.p>
+        <motion.h1 {...rise(0.25)} className="mt-5 text-5xl sm:text-6xl lg:text-7xl">Every great world begins with a story.</motion.h1>
+        <motion.p {...rise(0.45)} className="mx-auto mt-6 max-w-xl text-lg font-light leading-relaxed text-white/80">Original comics, graphic novels and animated worlds from an African studio, and a home for independent creators to publish their own.</motion.p>
+        <motion.div {...rise(0.65)} className="mt-10 flex flex-wrap justify-center gap-4">
+          <Link href="/comics" className="btn btn-primary">Explore comics</Link>
+          <Link href="/about" className="btn">About the studio</Link>
         </motion.div>
       </div>
-      <div aria-hidden="true" className="absolute bottom-6 left-1/2 h-10 w-px -translate-x-1/2 bg-gradient-to-b from-sun to-transparent" />
+      <div aria-hidden="true" className="absolute bottom-6 left-1/2 h-10 w-px -translate-x-1/2 bg-gradient-to-b from-white/60 to-transparent" />
     </section>
   );
 }

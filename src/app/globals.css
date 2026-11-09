@@ -1,21 +1,32 @@
 @import "tailwindcss";
 
+/* Design tokens: cinematic dark palette with one restrained cool accent. */
 @theme {
-  --color-night: #070b16;
-  --color-midnight: #0d1426;
-  --color-sun: #f5b82e;
-  --color-amber: #c98a12;
-  --color-mist: #9aa3b5;
-  --font-display: var(--font-bangers), system-ui, sans-serif;
-  --font-head: var(--font-spartan), system-ui, sans-serif;
-  --font-body: var(--font-inter), system-ui, sans-serif;
+  --color-night: #070b12;
+  --color-midnight: #0c131c;
+  --color-forest: #10262b;
+  --color-amber: #1b3d42; /* legacy class name, now a deep teal used in dark gradients */
+  --color-sun: #6fb7b0;   /* legacy class name, now the single teal accent */
+  --color-mist: #8e9aa8;
+  --color-line: rgb(255 255 255 / 0.14);
+  --font-display: var(--font-source), system-ui, sans-serif;
+  --font-head: var(--font-source), system-ui, sans-serif;
+  --font-body: var(--font-source), system-ui, sans-serif;
+  --ease-cine: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html { background: var(--color-night); color: #fff; scroll-behavior: smooth; }
-body { font-family: var(--font-body); overflow-x: hidden; }
-:focus-visible { outline: 3px solid var(--color-sun); outline-offset: 3px; }
+body { font-family: var(--font-body); overflow-x: hidden; line-height: 1.6; }
+h1, h2, h3 { font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; }
+:focus-visible { outline: 2px solid var(--color-sun); outline-offset: 3px; }
+
+.btn { display: inline-block; border: 1px solid rgb(255 255 255 / 0.7); border-radius: 3px; padding: 0.95rem 1.8rem; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #fff; text-align: center; cursor: pointer; transition: background 0.3s var(--ease-cine), color 0.3s var(--ease-cine), border-color 0.3s var(--ease-cine); }
+.btn:hover { background: #fff; color: var(--color-night); }
+.btn-primary { background: var(--color-sun); border-color: var(--color-sun); color: var(--color-night); }
+.btn-primary:hover { background: #fff; border-color: #fff; }
+.eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--color-mist); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

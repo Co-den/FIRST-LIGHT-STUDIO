@@ -5,17 +5,26 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL || "",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "", // never invented
   socials: [], // add { label, href } only with real URLs
+  // Set NEXT_PUBLIC_HERO_IMAGE to a file you have added under /public (e.g. /images/hero/hero.jpg). Null shows the built-in placeholder composition.
+  heroImage: process.env.NEXT_PUBLIC_HERO_IMAGE || null,
   description:
     "FIRST LIGHT STUDIO LTD is a Nigerian creative studio developing original comics, graphic novels, animation and intellectual properties.",
 };
 
 export const nav = [
   { label: "Home", href: "/" },
+  { label: "Comics", href: "/comics" },
+  { label: "Creators", href: "/creators" },
   { label: "Worlds", href: "/worlds" },
+  { label: "About", href: "/about" },
+];
+
+// Footer-only links to pages kept from the first build.
+export const moreNav = [
   { label: "Characters", href: "/characters" },
   { label: "Services", href: "/services" },
   { label: "Journal", href: "/journal" },
-  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const capabilities = [
